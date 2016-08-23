@@ -2,27 +2,18 @@ package jp.tonkatu05.ballgame.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-//import jp.tonkatu05.ballgame.game.DroidSan;
 import jp.tonkatu05.ballgame.R;
 import jp.tonkatu05.ballgame.game.GameManager;
 
-/**
- * Created by naoya on 2015/04/11.
- */
 public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
     final String TAG = "PlayView";
 
-//    private DroidSan droidsan;
     private SurfaceHolder mHolder;
     private Thread looper;
     private GameManager gameManager;
@@ -31,8 +22,6 @@ public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Run
     private int mWidth;
 
     private float[] accelerometer = new float[3];
-
-//    private long mTime = 0;
 
     public PlayView(Context context) {
         super(context);

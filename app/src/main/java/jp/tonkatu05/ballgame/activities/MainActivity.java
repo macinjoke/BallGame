@@ -1,7 +1,7 @@
 package jp.tonkatu05.ballgame.activities;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,7 +9,7 @@ import jp.tonkatu05.ballgame.R;
 import jp.tonkatu05.ballgame.fragments.StartFragment;
 import jp.tonkatu05.ballgame.fragments.PlayFragment;
 
-public class MainActivity extends AppCompatActivity implements StartFragment.OnFragmentInteractionListener{
+public class MainActivity extends FragmentActivity implements StartFragment.OnFragmentInteractionListener{
 
     private FragmentManager manager;
 
