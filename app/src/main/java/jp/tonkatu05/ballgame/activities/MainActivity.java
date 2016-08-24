@@ -27,7 +27,6 @@ public class MainActivity extends FragmentActivity implements StartFragment.OnFr
 
     @Override
     public void onFragmentAction(String message){
-        Log.d("aaaaaa", message);
         mManager.beginTransaction()
                 .replace(R.id.container, PlayFragment.newInstance())
                 .commit();

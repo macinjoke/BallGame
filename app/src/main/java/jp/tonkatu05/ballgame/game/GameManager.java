@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import jp.tonkatu05.ballgame.util.CsvManager;
 public class GameManager {
 
     private SurfaceHolder mHolder;
+    private Resources mResources;
     private long mTime = 0;
     private Ball[] mBalls;
     private Map mMap;
@@ -30,12 +32,13 @@ public class GameManager {
 
     public GameManager(SurfaceHolder holder, Resources resources){
         mHolder = holder;
-        int[][] ballData =  fetchFromCsv("ball.csv", resources);
+        mResources = resources;
+        int[][] ballData =  fetchFromCsv("ball.csv");
         mBalls = new Ball[ballData.length];
         for(int i=0; i < ballData.length; i++){
             mBalls[i] = new Ball(ballData[i][0], ballData[i][1], ballData[i][2]);
         }
-        mMap = new Map(fetchFromCsv("line.csv", resources));
+        mMap = new Map(fetchFromCsv("line.csv"));
         mCollisionManager = new CollisionManager(mBalls, mMap);
 
         mStartTime = System.currentTimeMillis();
@@ -50,7 +53,7 @@ public class GameManager {
             canvas.drawText("経過時間 :" + String.valueOf(mCurrentTime), 1200, 50, paint);
             if(isGameEnd(mBalls)){
                 paint.setTextSize(200);
-                canvas.drawText("げーむくりあー", 200, 400, paint);
+                canvas.drawText("Game Clear", 200, 400, paint);
             }
             mHolder.unlockCanvasAndPost(canvas);
         }
@@ -64,6 +67,12 @@ public class GameManager {
 
     public void setAccelerometer(float[] accelerometer) {
         this.mAccelerometer = accelerometer;
+    }
+
+    public void onTouchEvent(MotionEvent event){
+        for(int i = 0; i < mBalls.length; i++) {
+            mBalls[i].jump();
+        }
     }
 
     public void registerPositionLimit(int width, int height){
@@ -86,18 +95,18 @@ public class GameManager {
         }
         mMap.draw(canvas);
 
-        Paint paint = new Paint();
         //debug info
+        Paint paint = new Paint();
         paint.setTextSize(50);
         canvas.drawText("ax : "+String.valueOf(mAccelerometer[0]), 10, 100, paint);
         canvas.drawText("ay : "+String.valueOf(mAccelerometer[1]), 10, 180, paint);
         canvas.drawText("az : "+String.valueOf(mAccelerometer[2]), 10, 260, paint);
-        Log.d("GameManager", "delta : "+String.valueOf(mDelta));
+//        Log.d("GameManager", "delta : "+String.valueOf(mDelta));
     }
 
-    private int[][] fetchFromCsv(String filename, Resources resources) {
+    private int[][] fetchFromCsv(String filename) {
         try {
-            mAssetManager = resources.getAssets();
+            mAssetManager = mResources.getAssets();
             InputStream is = mAssetManager.open(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(inputStreamReader);

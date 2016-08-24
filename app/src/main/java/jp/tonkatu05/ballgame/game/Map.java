@@ -18,7 +18,6 @@ public class Map {
 
     public void draw(Canvas canvas){
         if (canvas == null) return;
-        Log.d("Map", "draw!!!");
         for(int i = 0; i < mLines.length; i++){
             mLines[i].draw(canvas);
         }

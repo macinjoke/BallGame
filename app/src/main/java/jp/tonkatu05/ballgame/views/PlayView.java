@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -79,6 +81,12 @@ public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Run
             mGameManager.setAccelerometer(mAccelerometer);
             mGameManager.loop();
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        mGameManager.onTouchEvent(event);
+        return false;
     }
 
     public void setAccelerometer(float[] accelerometer) {

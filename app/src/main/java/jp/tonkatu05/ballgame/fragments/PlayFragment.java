@@ -95,12 +95,12 @@ public class PlayFragment extends Fragment implements SensorEventListener {
                 break;
         }
 
-        StringBuilder message = new StringBuilder();
-        message.append("Accelerometer ")
-                .append(String.valueOf(mAccelerometerValues[0])).append(", ")
-                .append(String.valueOf(mAccelerometerValues[1])).append(", ")
-                .append(String.valueOf(mAccelerometerValues[2]));
-        Log.d(TAG, message.toString());
+//        StringBuilder message = new StringBuilder();
+//        message.append("Accelerometer ")
+//                .append(String.valueOf(mAccelerometerValues[0])).append(", ")
+//                .append(String.valueOf(mAccelerometerValues[1])).append(", ")
+//                .append(String.valueOf(mAccelerometerValues[2]));
+//        Log.d(TAG, message.toString());
 
         mPlayView.setAccelerometer(mAccelerometerValues);
     }

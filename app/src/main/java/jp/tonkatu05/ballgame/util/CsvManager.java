@@ -1,9 +1,5 @@
 package jp.tonkatu05.ballgame.util;
 
-
-import android.content.res.AssetManager;
-import android.util.Log;
-
 import java.io.BufferedReader;
 
 public class CsvManager {
@@ -21,14 +17,10 @@ public class CsvManager {
                 cols = line.split(",");
                 for (int i = 0; i < cols.length; i++) {
                     array2Dtmp[count][i] = Integer.parseInt(cols[i]);
-                    Log.d("CsvManager", "cols["+i+"] :"+ cols[i]);
                 }
                 count++;
-                Log.d("CsvManager", "line :"+ line);
-                Log.d("CsvManager", "count :"+count);
             }
 
-            // 読み込みデータの表示
             array2D = new int[count][cols.length];
             for (int i = 0; i < count; i++) {
                 for (int j = 0; j < cols.length; j++) {

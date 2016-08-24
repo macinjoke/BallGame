@@ -11,12 +11,13 @@ public class Ball {
 
     final String TAG = "Ball";
     private int mSize;
-    private int mAccelerationX;
-    private int mAccelerationY;
+    private int mSpeedX;
+    private int mSpeedY;
     private int mPositionX;
     private int mPositionY;
-    private int mAccelerationLimitX = 500;
-    private int mAccelerationLimitY = 500;
+    private int mSpeedLimitX = 500;
+    private int mSpeedLimitY = 500;
+    private int mJumpSpeed = -500;
     private int mPositionLimitX;
     private int mPositionlimity;
     private boolean mCollisionFlag = false;
@@ -36,12 +37,12 @@ public class Ball {
         this.mPositionLimitX = positionLimitX - mSize;
     }
 
-    public int getAccelerationX() {
-        return mAccelerationX;
+    public int getSpeedX() {
+        return mSpeedX;
     }
 
-    public int getAccelerationY() {
-        return mAccelerationY;
+    public int getSpeedY() {
+        return mSpeedY;
     }
 
     public int getPositionX() {
@@ -75,9 +76,9 @@ public class Ball {
     public void move(float[] accelerometer, long delta) {
         if(mGoalFlag) return;
         accele(accelerometer);
-        mPositionX += (int) ((delta / 1000.0) * mAccelerationX);
+        mPositionX += (int) ((delta / 1000.0) * mSpeedX);
         if(!mCollisionFlag) {
-            mPositionY += (int) ((delta / 1000.0) * mAccelerationY);
+            mPositionY += (int) ((delta / 1000.0) * mSpeedY);
         }
 
         if (mPositionX < mSize) {
@@ -95,24 +96,28 @@ public class Ball {
 
     }
 
+    public void jump(){
+        mSpeedY += mJumpSpeed;
+    }
+
     private void accele(float[] accelerometer) {
-        mAccelerationX += accelerometer[1] * 10;
+        mSpeedX += accelerometer[1] * 5;
         if(!mCollisionFlag){
-
-            mAccelerationY += accelerometer[0] * 10;
-
+            mSpeedY += accelerometer[0] * 5;
+        } else{
+            mSpeedY = 0;
         }
 
-        if (mAccelerationX < -mAccelerationLimitX) {
-            mAccelerationX = -mAccelerationLimitX;
-        } else if (mAccelerationX > mAccelerationLimitX) {
-            mAccelerationX = mAccelerationLimitX;
+        if (mSpeedX < -mSpeedLimitX) {
+            mSpeedX = -mSpeedLimitX;
+        } else if (mSpeedX > mSpeedLimitX) {
+            mSpeedX = mSpeedLimitX;
         }
 
-        if (mAccelerationY > mAccelerationLimitY) {
-            mAccelerationY = mAccelerationLimitY;
-        } else if (mAccelerationY < -mAccelerationLimitY) {
-            mAccelerationY = -mAccelerationLimitY;
+        if (mSpeedY > mSpeedLimitY) {
+            mSpeedY = mSpeedLimitY;
+        } else if (mSpeedY < -mSpeedLimitY) {
+            mSpeedY = -mSpeedLimitY;
         }
     }
 
