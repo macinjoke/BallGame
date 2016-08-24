@@ -11,16 +11,16 @@ import jp.tonkatu05.ballgame.fragments.PlayFragment;
 
 public class MainActivity extends FragmentActivity implements StartFragment.OnFragmentInteractionListener{
 
-    private FragmentManager manager;
+    private FragmentManager mManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        manager = getSupportFragmentManager();
+        mManager = getSupportFragmentManager();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        manager.beginTransaction()
+        mManager.beginTransaction()
                 .replace(R.id.container, StartFragment.newInstance())
                 .commit();
     }
@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity implements StartFragment.OnFr
     @Override
     public void onFragmentAction(String message){
         Log.d("aaaaaa", message);
-        manager.beginTransaction()
+        mManager.beginTransaction()
                 .replace(R.id.container, PlayFragment.newInstance())
                 .commit();
     }

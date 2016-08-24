@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import jp.tonkatu05.ballgame.R;
 import jp.tonkatu05.ballgame.game.GameManager;
 
 public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
@@ -15,13 +14,13 @@ public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Run
     final String TAG = "PlayView";
 
     private SurfaceHolder mHolder;
-    private Thread looper;
-    private GameManager gameManager;
+    private Thread mLooper;
+    private GameManager mGameManager;
 
     private int mHeight;
     private int mWidth;
 
-    private float[] accelerometer = new float[3];
+    private float[] mAccelerometer = new float[3];
 
     public PlayView(Context context) {
         super(context);
@@ -55,34 +54,34 @@ public class PlayView extends SurfaceView implements SurfaceHolder.Callback, Run
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         mHolder = holder;
-        gameManager = new GameManager(mHolder, getResources());
-        looper = new Thread(this);
+        mGameManager = new GameManager(mHolder, getResources());
+        mLooper = new Thread(this);
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (looper != null) {
+        if (mLooper != null) {
             mHeight = height;
             mWidth = width;
-            gameManager.registerPositionLimit(mWidth, mHeight);
-            looper.start();
+            mGameManager.registerPositionLimit(mWidth, mHeight);
+            mLooper.start();
         }
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        looper = null;
+        mLooper = null;
     }
 
     @Override
     public void run() {
-        while (looper != null) {
-            gameManager.setAccelerometer(accelerometer);
-            gameManager.loop();
+        while (mLooper != null) {
+            mGameManager.setAccelerometer(mAccelerometer);
+            mGameManager.loop();
         }
     }
 
     public void setAccelerometer(float[] accelerometer) {
-        this.accelerometer = accelerometer;
+        this.mAccelerometer = accelerometer;
     }
 }

@@ -2,30 +2,30 @@ package jp.tonkatu05.ballgame.game;
 
 public class CollisionManager {
 
-    private Ball[] balls;
-    private Map map;
+    private Ball[] mBalls;
+    private Map mMap;
 
     public CollisionManager(Ball[] balls, Map map){
-        this.balls = balls;
-        this.map = map;
+        this.mBalls = balls;
+        this.mMap = map;
     }
 
     public void collision(){
-        Line[] lines = map.getLines();
-        for(int j=0; j < balls.length; j++) {
+        Line[] lines = mMap.getLines();
+        for(int j = 0; j < mBalls.length; j++) {
             for(int i=0; i < lines.length; i++){
-                if ((balls[j].getPositionX() > lines[i].getX()
-                        && balls[j].getPositionX() < lines[i].getX() + lines[i].getLength()
-                        && balls[j].getPositionY() > lines[i].getY() - balls[j].getSize()
-                        && balls[j].getPositionY() < lines[i].getY() + balls[j].getSize())
-                        || getDistanceByTwoPoint(balls[j].getPositionX(), balls[j].getPositionY(),
-                        lines[i].getX(), lines[i].getY()) < balls[j].getSize()
-                        || getDistanceByTwoPoint(balls[j].getPositionX(), balls[j].getPositionY(),
-                        lines[i].getX() + lines[i].getLength(), lines[i].getY()) < balls[j].getSize()) {
-                    balls[j].setCollisionFlag(true);
+                if ((mBalls[j].getPositionX() > lines[i].getX()
+                        && mBalls[j].getPositionX() < lines[i].getX() + lines[i].getLength()
+                        && mBalls[j].getPositionY() > lines[i].getY() - mBalls[j].getSize()
+                        && mBalls[j].getPositionY() < lines[i].getY() + mBalls[j].getSize())
+                        || getDistanceByTwoPoint(mBalls[j].getPositionX(), mBalls[j].getPositionY(),
+                        lines[i].getX(), lines[i].getY()) < mBalls[j].getSize()
+                        || getDistanceByTwoPoint(mBalls[j].getPositionX(), mBalls[j].getPositionY(),
+                        lines[i].getX() + lines[i].getLength(), lines[i].getY()) < mBalls[j].getSize()) {
+                    mBalls[j].setCollisionFlag(true);
                     break;
                 } else {
-                    balls[j].setCollisionFlag(false);
+                    mBalls[j].setCollisionFlag(false);
                 }
             }
         }

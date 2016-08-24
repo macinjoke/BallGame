@@ -3,7 +3,6 @@ package jp.tonkatu05.ballgame.game;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 /**
  * Created by naoya on 2015/04/11.
@@ -11,109 +10,109 @@ import android.util.Log;
 public class Ball {
 
     final String TAG = "Ball";
-    private int size;
-    private int accelerationX;
-    private int accelerationY;
-    private int positionX;
-    private int positionY;
-    private int accelerationLimitX = 500;
-    private int accelerationLimitY = 500;
-    private int positionLimitX;
-    private int positionLimitY;
-    private boolean collisionFlag = false;
-    private boolean goalFlag = false;
+    private int mSize;
+    private int mAccelerationX;
+    private int mAccelerationY;
+    private int mPositionX;
+    private int mPositionY;
+    private int mAccelerationLimitX = 500;
+    private int mAccelerationLimitY = 500;
+    private int mPositionLimitX;
+    private int mPositionlimity;
+    private boolean mCollisionFlag = false;
+    private boolean mGoalFlag = false;
 
     public Ball(int x, int y, int size) {
-        this.size = size;
-        this.positionX = x;
-        this.positionY = y;
+        this.mSize = size;
+        this.mPositionX = x;
+        this.mPositionY = y;
     }
 
     public void setPositionLimitY(int positionLimitY) {
-        this.positionLimitY = positionLimitY - size;
+        this.mPositionlimity = positionLimitY - mSize;
     }
 
     public void setPositionLimitX(int positionLimitX) {
-        this.positionLimitX = positionLimitX - size;
+        this.mPositionLimitX = positionLimitX - mSize;
     }
 
     public int getAccelerationX() {
-        return accelerationX;
+        return mAccelerationX;
     }
 
     public int getAccelerationY() {
-        return accelerationY;
+        return mAccelerationY;
     }
 
     public int getPositionX() {
-        return positionX;
+        return mPositionX;
     }
 
     public int getPositionY() {
-        return positionY;
+        return mPositionY;
     }
 
     public int getSize() {
-        return size;
+        return mSize;
     }
 
     public void setCollisionFlag(boolean collisionFlag) {
-        this.collisionFlag = collisionFlag;
+        this.mCollisionFlag = collisionFlag;
     }
 
     public boolean getGoalFlag(){
-        return goalFlag;
+        return mGoalFlag;
     }
 
     public void draw(Canvas canvas){
         if (canvas == null) return;
         Paint paint = new Paint();
         paint.setColor(Color.argb(150,255,50,50));
-        canvas.drawCircle(positionX, positionY, size, paint);
+        canvas.drawCircle(mPositionX, mPositionY, mSize, paint);
     }
 
 
     public void move(float[] accelerometer, long delta) {
-        if(goalFlag) return;
+        if(mGoalFlag) return;
         accele(accelerometer);
-        positionX += (int) ((delta / 1000.0) * accelerationX);
-        if(!collisionFlag) {
-            positionY += (int) ((delta / 1000.0) * accelerationY);
+        mPositionX += (int) ((delta / 1000.0) * mAccelerationX);
+        if(!mCollisionFlag) {
+            mPositionY += (int) ((delta / 1000.0) * mAccelerationY);
         }
 
-        if (positionX < size) {
-            positionX = size;
-        } else if (positionX > positionLimitX) {
-            positionX = positionLimitX;
+        if (mPositionX < mSize) {
+            mPositionX = mSize;
+        } else if (mPositionX > mPositionLimitX) {
+            mPositionX = mPositionLimitX;
         }
 
-        if (positionY < size) {
-            positionY = size;
-        } else if (positionY > positionLimitY) {
-            positionY = positionLimitY;
-            goalFlag = true;
+        if (mPositionY < mSize) {
+            mPositionY = mSize;
+        } else if (mPositionY > mPositionlimity) {
+            mPositionY = mPositionlimity;
+            mGoalFlag = true;
         }
 
     }
 
     private void accele(float[] accelerometer) {
-        accelerationX += accelerometer[1] * 10;
-        if(!collisionFlag){
+        mAccelerationX += accelerometer[1] * 10;
+        if(!mCollisionFlag){
 
-            accelerationY += accelerometer[0] * 10;
+            mAccelerationY += accelerometer[0] * 10;
 
         }
 
-        if (accelerationX < -accelerationLimitX) {
-            accelerationX = -accelerationLimitX;
-        } else if (accelerationX > accelerationLimitX) {
-            accelerationX = accelerationLimitX;
+        if (mAccelerationX < -mAccelerationLimitX) {
+            mAccelerationX = -mAccelerationLimitX;
+        } else if (mAccelerationX > mAccelerationLimitX) {
+            mAccelerationX = mAccelerationLimitX;
         }
 
-        if (accelerationY > accelerationLimitY) {
-            accelerationY = accelerationLimitY;
-        } else if (accelerationY < -accelerationLimitY) {
-            accelerationY = -accelerationLimitY;
+        if (mAccelerationY > mAccelerationLimitY) {
+            mAccelerationY = mAccelerationLimitY;
+        } else if (mAccelerationY < -mAccelerationLimitY) {
+            mAccelerationY = -mAccelerationLimitY;
         }
     }
 

@@ -20,12 +20,12 @@ import jp.tonkatu05.ballgame.views.PlayView;
 public class PlayFragment extends Fragment implements SensorEventListener {
     private static final String TAG = PlayFragment.class.getSimpleName();
 
-    private PlayView sv;
+    private PlayView mPlayView;
     private SensorManager mSensorManager;
-    private List<Sensor> sensorList;
+    private List<Sensor> mSensorList;
     private final int SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME;
     // センサーの値
-    float[] accelerometerValues = new float[3];
+    float[] mAccelerometerValues = new float[3];
 
     private Context mContext;
 
@@ -51,7 +51,7 @@ public class PlayFragment extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_play, container, false);
 
-        sv = (PlayView) v.findViewById(R.id.surface_view);
+        mPlayView = (PlayView) v.findViewById(R.id.surface_view);
 
         return v;
     }
@@ -61,8 +61,8 @@ public class PlayFragment extends Fragment implements SensorEventListener {
         super.onResume();
 
         mSensorManager = (SensorManager) mContext.getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
-        sensorList = mSensorManager.getSensorList(Sensor.TYPE_ALL);
-        for (Sensor sensor : sensorList) {
+        mSensorList = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+        for (Sensor sensor : mSensorList) {
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER)
                 mSensorManager.registerListener(this, sensor, SENSOR_DELAY);
         }
@@ -91,18 +91,18 @@ public class PlayFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         switch (event.sensor.getType()) {
             case Sensor.TYPE_ACCELEROMETER:
-                accelerometerValues = event.values.clone();
+                mAccelerometerValues = event.values.clone();
                 break;
         }
 
         StringBuilder message = new StringBuilder();
         message.append("Accelerometer ")
-                .append(String.valueOf(accelerometerValues[0])).append(", ")
-                .append(String.valueOf(accelerometerValues[1])).append(", ")
-                .append(String.valueOf(accelerometerValues[2]));
+                .append(String.valueOf(mAccelerometerValues[0])).append(", ")
+                .append(String.valueOf(mAccelerometerValues[1])).append(", ")
+                .append(String.valueOf(mAccelerometerValues[2]));
         Log.d(TAG, message.toString());
 
-        sv.setAccelerometer(accelerometerValues);
+        mPlayView.setAccelerometer(mAccelerometerValues);
     }
 
     // センサの精度が変更された時に呼び出されるメソッド
