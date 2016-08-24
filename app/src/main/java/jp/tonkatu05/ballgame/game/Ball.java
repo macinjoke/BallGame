@@ -4,9 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-/**
- * Created by naoya on 2015/04/11.
- */
 public class Ball {
 
     final String TAG = "Ball";
@@ -35,14 +32,6 @@ public class Ball {
 
     public void setPositionLimitX(int positionLimitX) {
         this.mPositionLimitX = positionLimitX - mSize;
-    }
-
-    public int getSpeedX() {
-        return mSpeedX;
-    }
-
-    public int getSpeedY() {
-        return mSpeedY;
     }
 
     public int getPositionX() {

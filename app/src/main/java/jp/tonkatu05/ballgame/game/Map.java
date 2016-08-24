@@ -1,7 +1,6 @@
 package jp.tonkatu05.ballgame.game;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 public class Map {
 
