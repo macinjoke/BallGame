@@ -14,6 +14,16 @@
         android:id="@+id/gameTitle"
         android:layout_gravity="center" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下まで早くたどり着け. 端末を傾けて移動. タップでジャンプ."
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:textSize="24sp"
+        android:id="@+id/description"
+        android:layout_gravity="center" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
